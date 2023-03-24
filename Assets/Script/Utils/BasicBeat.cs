@@ -10,7 +10,7 @@ public class BasicBeat : MonoBehaviour
 
     public int GridPerBeat = 8;
 
-    private float tickInterval = GameConst.SEC_PER_MIN / (GameConst.DEFAULT_BPM * GameConst.DEFAULT_GRID_PER_BEAT);
+    private float tickInterval = GameConst.SEC_PER_MIN / (GameConst.DEFAULT_BPM );
 
     public int tickCount = 0;
     public int gridCount = 0;
@@ -21,15 +21,16 @@ public class BasicBeat : MonoBehaviour
     public bool TickEnable = false;
 
     public UnityEvent tickEvent = new UnityEvent();
-
+    public CheckLine checkLine;
     // Start is called before the first frame update
     void Start()
     {
+        Application.targetFrameRate = 60;
         Reset();
     }
 
     public void Reset(){
-        tickInterval = GameConst.SEC_PER_MIN / (BPM * GridPerBeat);
+        tickInterval = GameConst.SEC_PER_MIN / (BPM);
         tickCount = 0;
         tick = 0;
         gridTick = 9;
@@ -42,30 +43,43 @@ public class BasicBeat : MonoBehaviour
         {
             return;
         }
-        tick = tick + Time.fixedDeltaTime;
+        tick = tick + Time.deltaTime;
+
+        checkLine.tick = tick;
+        checkLine.tickInterval = tickInterval;
+
         if (tick >= tickInterval)
         {
             tick = 0;
             tickCount++;
-
-            gridTick++;
-            if (gridTick >= GridPerBeat)
-            {
-                gridTick = 0;
-                gridCount++;
-
-                Debug.Log("Beat!");
-
-                if (WwiseManager.IsReady())
-                {
-                    WwiseManager.PostEvent(WWISE_EVENTS.tick);
-                }
-                tickEvent?.Invoke();
+            tickEvent?.Invoke();
+            if(WwiseManager.IsReady()){
+                WwiseManager.PostEvent(WWISE_EVENTS.tick);
             }
+            // gridTick++;
+            // if (gridTick >= GridPerBeat)
+            // {
+            //     gridTick = 0;
+            //     gridCount++;
+
+            //     //Debug.Log("Beat!");
+
+                
+                
+            // }
 
         }
     }
-    void FixedUpdate()
+
+    public float GetTickTime(){
+        return Mathf.Abs(tickInterval - tick);
+    }
+
+    public float ForceSync(){
+        return tick = (tickInterval);
+    }
+
+    void Update()
     {
         Tick();
     }

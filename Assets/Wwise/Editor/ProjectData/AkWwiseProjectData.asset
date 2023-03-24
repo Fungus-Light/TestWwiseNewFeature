@@ -82,8 +82,8 @@ MonoBehaviour:
         ObjectType: 3
       Path: Default Work Unit\Test\bpm128
       maxAttenuation: 0
-      maxDuration: 370.45657
-      minDuration: 370.45657
+      maxDuration: 370.79852
+      minDuration: 370.79852
     - name: Test
       guid: f70e39068b38e34e8dd56c727806cdc5
       id: 3157003241

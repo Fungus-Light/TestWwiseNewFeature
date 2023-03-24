@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using AK.Wwise;
@@ -44,6 +44,12 @@ public class WwiseManager : MonoBehaviour
     public static void PostEvent(uint eventId){
         //uint eventId = AkSoundEngine.get
         AkSoundEngine.PostEvent(eventId, WwiseManager.Instance.gameObject);
+    }
+    public static uint PostEvent(uint eventId,Action cb){
+        //uint eventId = AkSoundEngine.get
+        return AkSoundEngine.PostEvent(eventId, WwiseManager.Instance.gameObject,(uint)(AkCallbackType.AK_MusicSyncBeat),(object in_cookie, AkCallbackType in_type, AkCallbackInfo in_info)=>{
+            cb?.Invoke();
+        },null);
     }
 
     // Update is called once per frame

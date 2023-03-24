@@ -165,13 +165,14 @@ public class AkSoundEngineController
 #else
 	public void OnApplicationPause(bool pauseStatus) 
 	{
+		
 		ActivateAudio(!pauseStatus);
 	}
 
 	public void OnApplicationFocus(bool focus)
 	{
 #if !UNITY_ANDROID
-		ActivateAudio(focus, AkWwiseInitializationSettings.ActivePlatformSettings.RenderDuringFocusLoss);
+		//ActivateAudio(focus, AkWwiseInitializationSettings.ActivePlatformSettings.RenderDuringFocusLoss);
 #endif
 	}
 #endif
