@@ -56,23 +56,18 @@ public class BasicBeat : MonoBehaviour
             if(WwiseManager.IsReady()){
                 WwiseManager.PostEvent(WWISE_EVENTS.tick);
             }
-            // gridTick++;
-            // if (gridTick >= GridPerBeat)
-            // {
-            //     gridTick = 0;
-            //     gridCount++;
-
-            //     //Debug.Log("Beat!");
-
-                
-                
-            // }
 
         }
     }
 
     public float GetTickTime(){
         return Mathf.Abs(tickInterval - tick);
+    }
+
+    public float GetAccurate(){
+        var v1 = Mathf.Abs(tickInterval - tick);
+        var v2 = Mathf.Abs(tick);
+        return Mathf.Min(v1,v2);
     }
 
     public float ForceSync(){

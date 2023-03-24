@@ -34,11 +34,11 @@ public class TestUI : MonoBehaviour
                     if(ticker.GetTickTime() > 0.01){
                         ticker.ForceSync();
                     }
-
+                    info.transform.parent.GetComponent<Animation>().Play("SimpleJump");
                 });
                 ticker.tickEvent.RemoveAllListeners();
                 ticker.tickEvent.AddListener(()=>{
-                    info.transform.parent.GetComponent<Animation>().Play("SimpleJump");
+                    
                 });
             });
         }
@@ -58,7 +58,7 @@ public class TestUI : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.A)){
-            pressCheck.text = "判定结果是：" + ticker.GetTickTime();
+            pressCheck.text = "判定结果是：" + ticker.GetAccurate();
         }
     }
 }
