@@ -22,7 +22,7 @@ public class BasicBeat : MonoBehaviour
 
     public UnityEvent tickEvent = new UnityEvent();
     public CheckLine checkLine;
-    // Start is called before the first frame update
+    
     void Start()
     {
         Application.targetFrameRate = 60;
@@ -69,6 +69,9 @@ public class BasicBeat : MonoBehaviour
         var v2 = Mathf.Abs(tick);
         return Mathf.Min(v1,v2);
     }
+
+    
+    
 
     public float ForceSync(){
         return tick = (tickInterval);

@@ -47,9 +47,7 @@ public class TestUI : MonoBehaviour
             stop.onClick.RemoveAllListeners();
             stop.onClick.AddListener(()=>{
                 ticker.TickEnable = false;
-                //if(id != 0){
-                    AkSoundEngine.StopAll();
-                //}
+                AkSoundEngine.StopAll();
             });
         }
     }
@@ -58,7 +56,12 @@ public class TestUI : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.A)){
-            pressCheck.text = "判定结果是：" + ticker.GetAccurate();
+            var acc = ticker.GetAccurate();
+            var result = " 准";
+            if(acc >= 0.05){
+                result = " 不准";
+            }
+            pressCheck.text = "判定结果是：" + acc + result;
         }
     }
 }
